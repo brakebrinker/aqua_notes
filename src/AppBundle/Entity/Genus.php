@@ -113,6 +113,11 @@ class Genus
         $this->isPublished = $isPublished;
     }
 
+    public function getisPublished()
+    {
+        return $this->isPublished;
+    }
+
     /**
      * @return ArrayCollection|GenusNote[]
      */
