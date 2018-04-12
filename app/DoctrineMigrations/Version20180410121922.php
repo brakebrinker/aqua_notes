@@ -18,7 +18,14 @@ class Version20180410121922 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE genus_note CHANGE genus_id genus_id INT NOT NULL');
+        $this->addSql("ALTER TABLE genus_note DROP FOREIGN KEY FK_6478FCEC85C4074C");
+        $this->addSql("DROP INDEX IDX_6478FCEC85C4074C ON genus_note");
+        // alter
+        $this->addSql("ALTER TABLE genus_note CHANGE genus_id genus_id INT NOT NULL");
+        // re-add the FKEY
+        $this->addSql("ALTER TABLE genus_note ADD CONSTRAINT FK_6478FCEC85C4074C FOREIGN KEY (genus_id) REFERENCES genus (id)");
+        $this->addSql("CREATE INDEX IDX_6478FCEC85C4074C ON genus_note (genus_id)");
+
     }
 
     /**
